@@ -1,0 +1,35 @@
+name: obsidian-wiki-lint
+description: Health check for Obsidian wiki knowledge base - detects contradictions, orphans, gaps
+trigger: manual / cron
+enabled: true
+
+# Schema enforcement (MITIGATION)
+schema_path: ~/Documents/Knowledge/AGENTS.md
+fail_if_schema_missing: true
+log_schema_hash: true
+
+# Safe fixes (auto-applied)
+safe_fixes:
+  - orphan_pages        # Add links to orphaned pages
+  - missing_links      # Auto-add cross-references
+
+# Review required (human approval)
+review_required:
+  - contradictions    # New source contradicts existing
+  - gaps             # Concepts mentioned but no page
+  - new_pages        # New page suggestions
+
+# LLM config for linting
+model: mlx/qwen3.6-27b
+temperature: 0.3
+max_tokens: 4096
+
+# Paths
+vault_path: ~/Documents/Knowledge
+wiki_dir: wiki
+inbox_dir: inbox
+index_file: index.md
+log_file: log.md
+
+# Cron schedule (optional)
+# schedule: "0 9 * * SAT"  # Every Saturday 9am
