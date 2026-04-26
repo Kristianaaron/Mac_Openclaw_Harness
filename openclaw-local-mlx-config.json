@@ -1,0 +1,46 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "mlx/default_model"
+      },
+      "models": {
+        "mlx/default_model": {
+          "alias": "Local Qwen MLX"
+        }
+      },
+      "experimental": {
+        "localModelLean": true
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "mlx": {
+        "baseUrl": "http://127.0.0.1:8000/v1",
+        "apiKey": "mlx-local",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "qwen3.6-27b",
+            "name": "Qwen3.6 27B UD MLX 6-bit",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 32768,
+            "maxTokens": 4096,
+            "compat": {
+              "requiresStringContent": true
+            }
+          }
+        ]
+      }
+    }
+  }
+}
