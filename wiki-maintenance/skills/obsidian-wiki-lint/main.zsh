@@ -9,8 +9,8 @@ SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="$SKILL_DIR/skill.yaml"
 
 # Parse config values
-VAULT_PATH="${vault_path:-~/Documents/Knowledge}"
-SCHEMA_PATH="${schema_path:-~/Documents/Knowledge/AGENTS.md}"
+VAULT_PATH="${vault_path:-$HOME/Documents/Knowledge}"
+SCHEMA_PATH="${schema_path:-$HOME/Documents/Knowledge/AGENTS.md}"
 
 # MITIGATION: Validate schema exists
 if [[ ! -f "$SCHEMA_PATH" ]]; then
