@@ -2,11 +2,11 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "mlx/default_model"
+        "primary": "mlx/Gemma-4-31B-JANG_4M-CRACK"
       },
       "models": {
-        "mlx/default_model": {
-          "alias": "Local Qwen MLX"
+        "mlx/Gemma-4-31B-JANG_4M-CRACK": {
+          "alias": "Gemma 4 31B JANG MLX MTP Proxy"
         }
       },
       "experimental": {
@@ -18,14 +18,14 @@
     "mode": "merge",
     "providers": {
       "mlx": {
-        "baseUrl": "http://127.0.0.1:8000/v1",
-        "apiKey": "mlx-local",
+        "baseUrl": "http://127.0.0.1:8091/v1",
+        "apiKey": "custom-local",
         "api": "openai-completions",
         "models": [
           {
-            "id": "qwen3.6-27b",
-            "name": "Qwen3.6 27B UD MLX 6-bit",
-            "reasoning": false,
+            "id": "Gemma-4-31B-JANG_4M-CRACK",
+            "name": "Gemma 4 31B JANG MLX MTP Proxy",
+            "reasoning": true,
             "input": ["text"],
             "cost": {
               "input": 0,

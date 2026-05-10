@@ -1,44 +1,85 @@
-# OpenClaw Qwen3.6-27B Setup
+# OpenClaw Gemma JANQ TUI Harness Setup
 
-## Current Status
-- MLX Server: Running on port 8000 with rapid-mlx
-- OpenClaw Gateway: Running on port 18789
-- Model: mlx-community/Qwen3.6-27B-4bit
+This repository installs the Mac-side OpenClaw TUI harness for the current local
+Gemma 4 JANQ runtime. It replaces the older Qwen port-8000 setup with the same
+profile-driven model server used by the newer OpenClaw autoresearch harness.
 
-## Throughput
-- Direct MLX: 19 tok/s single, 25-44 tok/s with batching
-- Through OpenClaw: ~4 tok/s (includes tool calling, streaming overhead)
-- First-token latency: ~12s (model prefill time)
+## Current Target
 
-## Key Files
-- MLX Config: `~/.openclaw/openclaw.json`
-- Server Script: `run-qwen-rapid-mlx-server.sh`
+- OpenClaw CLI: `/opt/homebrew/bin/openclaw`
+- Gateway: `http://127.0.0.1:18789`
+- Model provider: `mlx`
+- Model ref: `mlx/Gemma-4-31B-JANG_4M-CRACK`
+- OpenAI-compatible model API: `http://127.0.0.1:8091/v1`
+- Upstream JANG/VLM server: `127.0.0.1:8086`
+- Model profile file: `~/.openclaw/model-profiles.json`
 
-## Optimizations Applied
-1. Server batching: max-num-seqs=16, prefill-batch-size=16, completion-batch-size=32
-2. KV cache quantization: 8-bit
-3. Continuous batching enabled
-4. contextWindow: 16384, maxTokens: 2048
-5. Compaction: mode=default, maxHistoryShare=15%
+## Install
 
-## Issues Fixed
-- Hallucinations: Fixed via temperature=0.3, maxTokens increased
-- Session bloat: Configure memoryFlush and aggressive compaction
-- Model ID mismatch: Changed from default_model to qwen3.6-27b
-
-## To Start
 ```bash
-cd ~/Documents/Codex/2026-04-25/hey-codex-are-you-able-to
-./run-qwen-rapid-mlx-server.sh &
-openclaw gateway run --port 18789 --token local-dev-token &
+cd /Users/kristian/Documents/Mac_Openclaw_Harness
+./scripts/install-openclaw-harness.sh
 ```
 
-## For Fast Q&A (bypass OpenClaw overhead)
+The installer backs up existing wrapper/profile/sidecar targets before copying:
+
+- `openclaw-local-wrapper.zsh` -> `~/.zfunc/openclaw-tui-harness` if an
+  existing `~/.zfunc/openclaw` is present
+- `scripts/openclaw-tui-self-improvement.py` -> `~/.openclaw/bin/openclaw-tui-self-improvement`
+- `config/model-profiles.json` -> `~/.openclaw/model-profiles.json`
+
+If `~/.openclaw/openclaw.json` already exists, the installer keeps it and asks
+the model-profile helper to sync the active model/provider fields. It only
+copies `openclaw-local-mlx-config.json` when no OpenClaw config exists yet.
+
+To intentionally replace the active `openclaw` wrapper after review:
+
 ```bash
-curl http://127.0.0.1:8000/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{"model": "qwen3.6-27b", "messages": [{"role": "user", "content": "YOUR PROMPT"}], "max_tokens": 500}'
+OPENCLAW_INSTALL_REPLACE_WRAPPER=1 ./scripts/install-openclaw-harness.sh
 ```
 
-## Last Updated
-2026-04-26
+## Verify
+
+```bash
+./scripts/verify-harness.sh
+openclaw doctor
+openclaw model-status
+```
+
+## Use
+
+```bash
+openclaw tui
+```
+
+The wrapper resolves the active model profile, starts the matching LaunchAgent
+only if needed, applies the memory gate before launching the 31B model, warms the
+prefix cache, starts the OpenClaw gateway, and runs a lightweight TUI
+self-improvement health snapshot in the background.
+
+## Self-Improvement Sidecar
+
+```bash
+openclaw doctor
+openclaw self-improve --json
+```
+
+The sidecar checks:
+
+- active model/profile drift
+- gateway and model API reachability
+- memory pressure
+- recent logs for crash, timeout, repeated reasoning, and malformed tool-call markers
+
+It writes reports to `~/.openclaw/tui-self-improvement/reports/` and a durable
+journal to `~/.openclaw/tui-self-improvement/journal.jsonl`. It is
+observational by default and does not mutate the model, provider, runtime, or
+OpenClaw source.
+
+## Safety Notes
+
+- This repo is OpenClaw-only. It does not configure opencode.
+- No tokens, API keys, or environment files are required.
+- `local-dev-token` and `custom-local` are local placeholders, not external secrets.
+- The wrapper refuses to start another large local model when macOS memory
+  pressure is already unsafe.
