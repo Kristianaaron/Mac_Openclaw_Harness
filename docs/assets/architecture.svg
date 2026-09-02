@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" role="img" aria-labelledby="title desc">
+  <title id="title">Mac OpenClaw Harness architecture</title>
+  <desc id="desc">MLX Qwen server feeds the OpenClaw gateway and wrapper. The wrapper reaches a local TUI or CLI. An optional wiki-maintenance lint skill can call the same local model endpoint.</desc>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="880" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1618"/>
+      <stop offset="1" stop-color="#102428"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a3538"/>
+      <stop offset="1" stop-color="#14282b"/>
+    </linearGradient>
+    <linearGradient id="cardAccent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c4444"/>
+      <stop offset="1" stop-color="#153536"/>
+    </linearGradient>
+  </defs>
+
+  <!-- explicit canvas -->
+  <rect x="0" y="0" width="880" height="400" fill="url(#bg)"/>
+  <rect x="12" y="12" width="856" height="376" rx="18" fill="#0e1c1f" stroke="#2a5558" stroke-width="1.5"/>
+
+  <!-- header -->
+  <rect x="12" y="12" width="856" height="56" rx="18" fill="#123033"/>
+  <rect x="12" y="48" width="856" height="20" fill="#123033"/>
+  <text x="36" y="46" fill="#7ee0d4" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">Mac local-dev</text>
+  <text x="160" y="46" fill="#9bb8b6" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14">Apple Silicon MLX</text>
+  <text x="310" y="46" fill="#9bb8b6" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="14">OpenClaw + Qwen harness</text>
+  <circle cx="820" cy="40" r="5" fill="#3dbeb3"/>
+  <circle cx="838" cy="40" r="5" fill="#2a6a6e"/>
+  <circle cx="856" cy="40" r="5" fill="#1c4444"/>
+
+  <!-- MLX server -->
+  <rect x="44" y="108" width="220" height="168" rx="14" fill="url(#cardAccent)" stroke="#3dbeb3" stroke-width="1.75"/>
+  <rect x="60" y="124" width="28" height="10" rx="2" fill="#3dbeb3"/>
+  <rect x="60" y="140" width="22" height="10" rx="2" fill="#2a8f88"/>
+  <rect x="60" y="156" width="26" height="10" rx="2" fill="#1f6d68"/>
+  <text x="100" y="142" fill="#e8f4f2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">MLX Qwen server</text>
+  <text x="60" y="196" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Local OpenAI-compatible</text>
+  <text x="60" y="216" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">chat completions endpoint</text>
+  <text x="60" y="246" fill="#8aa3a1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">run-qwen-rapid-mlx-server.sh</text>
+  <text x="60" y="262" fill="#8aa3a1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">run-qwen-mlx-server.sh</text>
+
+  <!-- arrow 1 -->
+  <path d="M274 188 H328" fill="none" stroke="#3dbeb3" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="328,183 340,188 328,193" fill="#3dbeb3"/>
+
+  <!-- OpenClaw gateway / wrapper -->
+  <rect x="348" y="108" width="236" height="168" rx="14" fill="url(#card)" stroke="#5eead4" stroke-width="1.75"/>
+  <rect x="368" y="128" width="44" height="28" rx="6" fill="#0f2426" stroke="#3dbeb3" stroke-width="1.25"/>
+  <path d="M380 142 H400" fill="none" stroke="#7ee0d4" stroke-width="2" stroke-linecap="round"/>
+  <text x="424" y="148" fill="#e8f4f2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">OpenClaw layer</text>
+  <text x="368" y="188" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Gateway talks to the MLX</text>
+  <text x="368" y="208" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">provider. Wrapper can start</text>
+  <text x="368" y="228" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">the local stack first.</text>
+  <text x="368" y="254" fill="#8aa3a1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">openclaw-local-wrapper.zsh</text>
+  <text x="368" y="270" fill="#8aa3a1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11">openclaw-local-mlx-config.json</text>
+
+  <!-- arrow 2 -->
+  <path d="M594 188 H648" fill="none" stroke="#3dbeb3" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="648,183 660,188 648,193" fill="#3dbeb3"/>
+
+  <!-- TUI / CLI -->
+  <rect x="668" y="108" width="176" height="168" rx="14" fill="url(#card)" stroke="#2a6a6e" stroke-width="1.75"/>
+  <rect x="686" y="128" width="140" height="52" rx="8" fill="#0b181a" stroke="#3d5c5e" stroke-width="1.25"/>
+  <text x="698" y="150" fill="#7ee0d4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12">$ openclaw</text>
+  <text x="698" y="168" fill="#8aa3a1" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12">tui / chat</text>
+  <text x="686" y="208" fill="#e8f4f2" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="16" font-weight="700">TUI / CLI</text>
+  <text x="686" y="232" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">Interactive OpenClaw</text>
+  <text x="686" y="252" fill="#c5ddd9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13">on this Mac</text>
+
+  <!-- optional skill, hanging from gateway -->
+  <path d="M466 276 V300" fill="none" stroke="#5eead4" stroke-width="1.75" stroke-dasharray="4 4"/>
+  <rect x="348" y="300" width="236" height="64" rx="12" fill="#102224" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="368" y="326" fill="#7ee0d4" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="13" font-weight="700">optional wiki lint skill</text>
+  <text x="368" y="348" fill="#8aa3a1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" font-size="12">wiki-maintenance / local /v1 call</text>
+</svg>
