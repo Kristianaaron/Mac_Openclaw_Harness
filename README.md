@@ -2,11 +2,13 @@
 
 **Local-dev OpenClaw on a Mac: MLX Qwen in, gateway/wrapper in the middle, optional wiki lint on the side.**
 
-[![macOS](https://img.shields.io/badge/platform-macOS-0f766e)](#what-this-is)
-[![MLX](https://img.shields.io/badge/runtime-MLX-134e4a)](#whats-in-the-repo)
-[![Qwen](https://img.shields.io/badge/model-Qwen%203.6-1e3a3a)](#start-from-the-scripts-in-this-repo)
-[![OpenClaw](https://img.shields.io/badge/agent-OpenClaw-115e59)](#how-the-pieces-connect)
-[![scope](https://img.shields.io/badge/scope-local%20dev%20harness-334155)](#what-this-is-not)
+<p>
+  <a href="#what-this-is"><img src="https://img.shields.io/badge/platform-macOS-0f766e" alt="macOS" /></a>
+  <a href="#whats-in-the-repo"><img src="https://img.shields.io/badge/runtime-MLX-134e4a" alt="MLX" /></a>
+  <a href="#start-from-the-scripts-in-this-repo"><img src="https://img.shields.io/badge/model-Qwen%203.6-1e3a3a" alt="Qwen 3.6" /></a>
+  <a href="#how-the-pieces-connect"><img src="https://img.shields.io/badge/agent-OpenClaw-115e59" alt="OpenClaw" /></a>
+  <a href="#what-this-is-not"><img src="https://img.shields.io/badge/scope-local%20dev%20harness-334155" alt="local-dev harness" /></a>
+</p>
 
 <p align="center">
   <img src="docs/assets/architecture.svg" alt="Architecture: MLX Qwen server to OpenClaw gateway and wrapper to TUI or CLI, with an optional wiki-maintenance lint skill" width="880" />
